@@ -8,7 +8,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler #定时框架
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
  
-bot = Bot(cache_path=True)#登陆微信
+bot = Bot(None, 2, None, None, None, None)#登陆微信
 #tuling = Tuling(api_key='06aa52c7a9cc4c3c939ca4a5f031eebc')  #图灵机器人api
  
 #单个好友
@@ -44,7 +44,7 @@ def get_weather(location):
         response = requests.get(url)
         results = response.json()
 
-    str0 = ('这是今天的天气预报！来自靠谱的长治小哥哥')
+    str0 = ('这是今天的天气预报！\n来自不太靠谱的长治小哥哥')
     tadayResult = results['result']['today']
 
     temperature = tadayResult['temperature']
@@ -93,5 +93,5 @@ def send_message():
 #定时器
 print('weather repoter start...')
 sched = BlockingScheduler()
-sched.add_job(send_message,'cron',day_of_week='0-6',hour=1,minute =46)#设定发送的时间
+sched.add_job(send_message,'cron',day_of_week='0-6',hour=2,minute =10)#设定发送的时间
 sched.start()
